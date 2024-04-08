@@ -7,20 +7,18 @@ mongoose
   .connect(
     "mongodb+srv://pacovillarreal9555:elementos9@cluster0.xlgk0lh.mongodb.net/?retryWrites=true&w=majority"
   )
-  .then(() => console.log("Connect  to MongoDB successfully"))
   .catch((e) => console.log(e));
+
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", async (req, res) => {
   const shoturls = await ShortUrl.find();
-  console.log(shoturls);
   res.render("index", { shortUrls: shoturls });
 });
 
 app.post("/shortUrls", async (req, res) => {
   await ShortUrl.create({ full: req.body.fullUrl });
-
   res.redirect("/");
 });
 
